@@ -36,6 +36,7 @@
 * coin          （必填）要存入的货币的简称
 * coin_amount   （必填）要存入的货币的数量
 * remark        （必填）显示给用户的备注信息
+* callback_url  （可选）充值成功之后，将通过此 URL 将 deposit 信息通过 POST 方式发送到此 URL，发送的内容与通过“查询托管支付请求”接口返回的数据相同
 
 ### 查询托管支付请求 GET v1/entrust_wallet/deposit/load
 
