@@ -54,13 +54,13 @@ CoinchatJSBridge.invoke('getUserInfo', { user_id: 3})
 将请求内容拼接成待签名字符串，得到：
 
 ```
-api_key=foogroup_id=2nonce=some_random_charactertimestamp=1234567890user_id=1
+api_key=foo&group_id=2&nonce=some_random_character&timestamp=1234567890&user_id=1
 ```
 
-计算 HMAC-SHA256('api_key=foogroup_id=2nonce=some_random_charactertimestamp=1234567890user_id=1', 'bar')，得到：
+计算 HMAC-SHA256('api_key=foo&group_id=2&nonce=some_random_character&timestamp=1234567890&user_id=1', 'bar')，得到：
 
 ```
-ad4b36a22f78c6d9409dd21644702cc6ec9c0b08a9d1b00cd0c2436bd9fbd58f
+b27eb8f5bc570ca9782dd572aae7d7cc51f4ba4c56aca786c40a780c8ed81631
 ```
 
 将签名结果作为 sign 参数添加回请求内容中，最后的请求内容是：
@@ -73,7 +73,7 @@ ad4b36a22f78c6d9409dd21644702cc6ec9c0b08a9d1b00cd0c2436bd9fbd58f
     timestamp: 1234567890,
     nonce: "some_random_character",
     api_key: "foo",
-    sign: "ad4b36a22f78c6d9409dd21644702cc6ec9c0b08a9d1b00cd0c2436bd9fbd58f"
+    sign: "b27eb8f5bc570ca9782dd572aae7d7cc51f4ba4c56aca786c40a780c8ed81631"
 }
 ```
 
