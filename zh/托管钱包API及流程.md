@@ -47,7 +47,7 @@
 
 ### 发布一笔链上交易 POST v1/entrust_wallet/transaction/add
 
-* 此接口需要签名 *
+*此接口需要签名*
 
 * wallet_id     （必填）要使用的托管钱包的编号
 * transaction   （必填）要发布到以太坊的交易数据，以 JSON 字符串表示
