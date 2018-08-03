@@ -36,7 +36,7 @@
 * coin          （必填）要存入的货币的简称
 * coin_amount   （必填）要存入的货币的数量
 * remark        （必填）显示给用户的备注信息
-* callback_url  （可选）充值成功之后，将通过此 URL 将 deposit 信息通过 POST 方式发送到此 URL，发送的内容与通过“查询托管支付请求”接口返回的数据相同
+* callback_url  （可选）充值成功之后，将通过此 URL 将 deposit 信息通过 POST 方式发送到此 URL，发送的内容与通过“查询托管支付请求”接口返回的数据相同。回调详情见本文的“回调说明”章节
 
 ### 查询托管支付请求 GET v1/entrust_wallet/deposit/load
 
@@ -61,3 +61,31 @@
 * wallet_id       （必填）要退还的托管钱包的编号
 
 调用此接口后，托管钱包中的剩余资金将全部回到用户的账户中，且再也不能通过此钱包发起链上交易
+
+
+## 回调说明
+所有的回调均通过 HTTP POST 方式，将一段 JSON 数据发送到你指定的 URL。
+
+收到回调后，应该返回 HTTP 200 并输出 ```ok``` 两个字，表示回调已收到并处理完成。如果输出其他内容，Coinchat 会尝试继续回调。
+
+Coinchat 最多尝试 10 次回调，两次回调的间隔按指数增长。一般情况下，在首次回调失败之后，Coinchat 大概会在 1～2 日内继续回调，直到达到回调失败次数上线。
+
+由于网络状况不可预知，即使在你输出了 ```ok``` 之后，Coinchat 仍可能再次发送请求，你的处理代码中需要处理好重复收到回调请求，或同时收到两个相同的回调请求的情况。
+
+### 回调签名
+Coinchat 发送的回调中，会附带一个名为 ```X-COINCHAT-CALLBACK-SIGNTURE``` 的 HTTP 头，内容是签名值。签名是请求体中 JSON 字符串数据的 HMAC-SHA256 哈希值，以十六进制表示，字符均为小写。HMAC 密钥是商户的 API_SECRET.
+
+### 回调签名实例
+例如，Coinchat 回调的内容是 
+```
+{"foo": "bar", "var":1}
+```
+商户的 API_SECRET 是 ```api_secret_123456```
+
+签名 signture = HMAC-SHA256('{"foo": "bar", "var":1}', 'api_secret_123456')
+
+签名结果是 `fb80d873cadd2d0c739c0709d3c600dd5ac987ac7230c4cc7da5ca9b448c8d4d`
+
+需要注意的是，你需要将 Coinchat 传来的 JSON 字符串原样传入 HMAC 函数，不能对 JSON 字符串预先做任何处理，否则将得不到正确的签名结果。
+
+将你计算得到的签名结果和 X-COINCHAT-CALLBACK-SIGNTURE 的值进行对比，如果两者相同，说明请求确实是 Coinchat 发出的，可以放心使用。
