@@ -78,6 +78,7 @@ https://api.coinchat.im/v1/oauth/get_token?partner_no=PARTNER_NO&api_secret=API_
 ```
 
 参数说明
+
 参数 | 是否必须 | 说明
 ------------ | ------------- | ------------
 partner_no | 是  |  API的唯一标识，在开发者中心中，申请API后可以获得
@@ -130,6 +131,7 @@ https://api.coinchat.im/v1/oauth/refresh_token.html?partner_no=PARTNER_NO&refres
 ```
 
 参数说明
+
 参数 | 是否必须 | 说明
 ------------ | ------------- | ------------
 partner_no | 是  |  API的唯一标识，在开发者中心中，申请API后可以获得
