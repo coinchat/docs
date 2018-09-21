@@ -2,14 +2,14 @@
 
 如果用户在COINCHAT客户端中访问第三方网页，公众号可以通过COINCHAT网页授权机制，来获取用户基本信息，进而实现业务逻辑。
 
-###关于网页授权回调域名的说明
+### 关于网页授权回调域名的说明
 
 1、在COINCHAT开发者请求用户网页授权之前，开发者需要先到COINCHAT官网中的“开发者中心 - 管理API - 编辑 - 安全域名”的配置选项中，修改授权回调域名。请注意，这里填写的是域名（是一个字符串），而不是URL，因此请勿加 http:// 等协议头；
 
 2、授权回调域名配置规范为全域名，比如需要网页授权的域名为：www.coinchat.im，配置以后此域名下面的页面http://www.coinchat.im/music.html 、 http://www.coinchat.im/login.html 都可以进行OAuth2.0鉴权。但http://pay.coinchat.im 、 http://music.coinchat.im 、 http:/coinchat.im无法进行OAuth2.0鉴权
 
 
-###关于特殊场景下的静默授权
+### 关于特殊场景下的静默授权
 
 1、当用户已经授权过某个开发API后，24小时内再次进入这个授权页面，就静默授权的，用户无感知；
 
@@ -24,7 +24,7 @@
 
 4、通过网页授权access_token和user_id获取用户基本信息（可以用这个接口来更新用户资料）。
 
-###目录
+### 目录
 
 1 第一步：用户同意授权，获取code
 
@@ -59,13 +59,13 @@ state	| 否	| 重定向后会带上state参数，开发者可以填写a-zA-Z0-9�
 
 ![](https://cdn.static.coinchat.im/upload/original_upload_image/9f/e8/9fe8eaecfd38cc3b017effa367674ca7224f1ee0fbf521f168d8d54ebe20cbaf.png)
 
-###用户同意授权后
+### 用户同意授权后
 
 如果用户同意授权，页面将跳转至 redirect_uri/?code=CODE&state=STATE。
 
 code说明 ： code作为换取access_token的票据，每次用户授权带上的code将不一样，code只能使用一次，5分钟未被使用自动过期。
 
-##第二步：通过code换取网页授权access_token和用户信息
+## 第二步：通过code换取网页授权access_token和用户信息
 
 由于COINCHAT的API的api_secret和获取到的access_token安全级别都非常高，必须只保存在服务器，不允许传给客户端。后续刷新access_token、通过access_token获取用户信息等步骤，也必须从服务器发起。
 
@@ -118,7 +118,7 @@ grant_type	| 是	| 填写为authorization_code
 
 至此，基本授权流程结束，你可以通过以下第三第四步来更新用户信息。
 
-##第三步：刷新access_token（如果需要）
+## 第三步：刷新access_token（如果需要）
 
 由于access_token拥有较短的有效期（24小时），当access_token超时后，可以使用refresh_token进行刷新，refresh_token有效期为30天，当refresh_token失效之后，需要用户重新授权。
 
@@ -165,7 +165,7 @@ refresh_token | 是  |  填写通过第二步获取到的refresh_token参数
 }
 ```
 
-##第四步：拉取用户信息
+## 第四步：拉取用户信息
 
 开发者可以通过access_token和user_id拉取用户信息了。
 
