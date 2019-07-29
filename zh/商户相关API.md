@@ -32,7 +32,7 @@ CoinchatJSBridge.invoke('getUserInfo', { user_id: 3})
 
 在请求内容中添加了 timestamp、nonce 以及 partner_no（或 api_key） 参数后，将请求内容进行签名，把签名结果作为 signature 参数添加到请求内容中，然后就可以提交请求了。
 
-注意，大部分情况下，都应该使用 partner_no 参数，不要使用 api_key 参数。api_key 参数只在极少的情况下会使用。
+注意，大部分情况下，如无特别说明，都应该使用 partner_no 参数，不要使用 api_key 参数。api_key 参数只在极少的情况下会使用。
 
 ## 示例
 （如无特别说明，下文中将使用 JSON 格式来表示 HTTP GET 或 POST 请求）
@@ -46,25 +46,25 @@ CoinchatJSBridge.invoke('getUserInfo', { user_id: 3})
 首先在请求参数中添加 timestamp、nonce 以及 api_key 信息，得到：
 
 ```
-{user_id: 1, group_id: 2, timestamp: 1234567890, nonce: "some_random_character", api_key: "foo"}
+{user_id: 1, group_id: 2, timestamp: 1234567890, nonce: "some_random_character", partner_no: "foo"}
 ```
 
 对请求内容的参数进行排序，得到：
 
 ```
-{api_key: "foo", group_id: 2, nonce: "some_random_character", timestamp: 1234567890, user_id:1}
+{group_id: 2, nonce: "some_random_character", partner_no: "foo", timestamp: 1234567890, user_id:1}
 ```
 
 将请求内容拼接成待签名字符串，得到：
 
 ```
-api_key=foo&group_id=2&nonce=some_random_character&timestamp=1234567890&user_id=1
+group_id=2&nonce=some_random_character&partner_no=foo&timestamp=1234567890&user_id=1
 ```
 
-计算 HMAC-SHA256('api_key=foo&group_id=2&nonce=some_random_character&timestamp=1234567890&user_id=1', 'bar')，得到：
+计算 HMAC-SHA256('group_id=2&nonce=some_random_character&partner_no=foo&timestamp=1234567890&user_id=1', 'bar')，得到：
 
 ```
-b27eb8f5bc570ca9782dd572aae7d7cc51f4ba4c56aca786c40a780c8ed81631
+005de6f9e9c2721a89410f59b01ae486980e3237a4c5aed9cc086b4384bde209
 ```
 
 将签名结果作为 signature 参数添加回请求内容中，最后的请求内容是：
@@ -76,8 +76,8 @@ b27eb8f5bc570ca9782dd572aae7d7cc51f4ba4c56aca786c40a780c8ed81631
     group_id: 2,
     timestamp: 1234567890,
     nonce: "some_random_character",
-    api_key: "foo",
-    signature: "b27eb8f5bc570ca9782dd572aae7d7cc51f4ba4c56aca786c40a780c8ed81631"
+    partner_no: "foo",
+    signature: "005de6f9e9c2721a89410f59b01ae486980e3237a4c5aed9cc086b4384bde209"
 }
 ```
 
