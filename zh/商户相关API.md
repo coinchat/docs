@@ -37,7 +37,7 @@ CoinchatJSBridge.invoke('getUserInfo', { user_id: 3})
 ## 示例
 （如无特别说明，下文中将使用 JSON 格式来表示 HTTP GET 或 POST 请求）
 
-假设有一个商户，API_KEY 是 foo, API_SECRET 是 bar，商户要发送一个这样的请求：
+假设有一个商户，商户编号是 foo, API_SECRET 是 bar，商户要发送一个这样的请求：
 
 ```
 {user_id: 1, group_id: 2}
