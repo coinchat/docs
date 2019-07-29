@@ -35,6 +35,8 @@ CoinchatJSBridge.invoke('getUserInfo', { user_id: 3})
 注意，大部分情况下，都应该使用 partner_no 参数，不要使用 api_key 参数。api_key 参数只在极少的情况下会使用。
 
 ## 示例
+（如无特别说明，下文中将使用 JSON 格式来表示 HTTP GET 或 POST 请求）
+
 假设有一个商户，API_KEY 是 foo, API_SECRET 是 bar，商户要发送一个这样的请求：
 
 ```
