@@ -30,7 +30,7 @@ CoinchatJSBridge.invoke('getUserInfo', { user_id: 3})
 
 为了区分商户身份，请求参数中还应该添加 partner_no 或 api_key 参数。
 
-在请求内容中添加了 timestamp、nonce 以及 partner_no（或 api_key） 参数后，将请求内容进行签名，把签名结果作为 sign 参数添加到请求内容中，然后就可以提交请求了。
+在请求内容中添加了 timestamp、nonce 以及 partner_no（或 api_key） 参数后，将请求内容进行签名，把签名结果作为 signature 参数添加到请求内容中，然后就可以提交请求了。
 
 注意，大部分情况下，都应该使用 partner_no 参数，不要使用 api_key 参数。api_key 参数只在极少的情况下会使用。
 
@@ -65,7 +65,7 @@ api_key=foo&group_id=2&nonce=some_random_character&timestamp=1234567890&user_id=
 b27eb8f5bc570ca9782dd572aae7d7cc51f4ba4c56aca786c40a780c8ed81631
 ```
 
-将签名结果作为 sign 参数添加回请求内容中，最后的请求内容是：
+将签名结果作为 signature 参数添加回请求内容中，最后的请求内容是：
 
 ```
 
@@ -75,7 +75,7 @@ b27eb8f5bc570ca9782dd572aae7d7cc51f4ba4c56aca786c40a780c8ed81631
     timestamp: 1234567890,
     nonce: "some_random_character",
     api_key: "foo",
-    sign: "b27eb8f5bc570ca9782dd572aae7d7cc51f4ba4c56aca786c40a780c8ed81631"
+    signature: "b27eb8f5bc570ca9782dd572aae7d7cc51f4ba4c56aca786c40a780c8ed81631"
 }
 ```
 
